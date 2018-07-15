@@ -21,6 +21,7 @@ GxEPD2_inkyphat::GxEPD2_inkyphat(int8_t cs, int8_t dc, int8_t rst, int8_t busy) 
 
 void GxEPD2_inkyphat::init(uint32_t serial_diag_bitrate)
 {
+  Serial.println("init()");
   GxEPD2_EPD::init(serial_diag_bitrate);
   _initial = true;
   _power_is_on = false;
@@ -33,6 +34,7 @@ void GxEPD2_inkyphat::clearScreen(uint8_t value)
 
 void GxEPD2_inkyphat::clearScreen(uint8_t black_value, uint8_t color_value)
 {
+  Serial.println("clearScreen()");
   writeScreenBuffer(black_value, color_value);
   _Update_Full();
   _initial = false;
@@ -45,6 +47,7 @@ void GxEPD2_inkyphat::writeScreenBuffer(uint8_t value)
 
 void GxEPD2_inkyphat::writeScreenBuffer(uint8_t black_value, uint8_t color_value)
 {
+  Serial.println("writeScreenBuffer()");
   _Init_Full();
   //_writeCommand(0x11); // data entry
   _setPartialRamArea(0, 0, WIDTH, HEIGHT);
@@ -69,6 +72,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t bitmap[], int16_t x, int16_t y, i
 
 void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int16_t x, int16_t y, int16_t w, int16_t h, bool invert, bool mirror_y, bool pgm)
 {
+  Serial.println("writeImage()");
   delay(1); // yield() to avoid WDT on ESP8266 and ESP32
   int16_t wb = (w + 7) / 8; // width bytes, bitmaps are padded
   x -= x % 8; // byte boundary
@@ -172,12 +176,14 @@ void GxEPD2_inkyphat::drawNative(const uint8_t* data1, const uint8_t* data2, int
 
 void GxEPD2_inkyphat::refresh(bool partial_update_mode)
 {
+  Serial.println("refresh() 1");
   if (partial_update_mode) refresh(0, 0, WIDTH, HEIGHT);
   else _Update_Full();
 }
 
 void GxEPD2_inkyphat::refresh(int16_t x, int16_t y, int16_t w, int16_t h)
 {
+  Serial.println("refresh() 2");
   x -= x % 8; // byte boundary
   w -= x % 8; // byte boundary
   int16_t x1 = x < 0 ? 0 : x; // limit
@@ -210,6 +216,7 @@ void GxEPD2_inkyphat::_writeData_nCS(const uint8_t* data, uint16_t n)
 
 void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
+  Serial.println("_setPartialRamArea()");
   uint16_t xe = (x + w - 1) | 0x0007; // byte boundary inclusive (last byte)
   uint16_t ye = y + h - 1;
   x &= 0xFFF8; // byte boundary
@@ -232,6 +239,7 @@ void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uin
 
 void GxEPD2_inkyphat::_PowerOff()
 {
+  Serial.println("_powerOff()");
   _writeCommand(0x10); // deep sleep
   _writeData(0x01);
   _power_is_on = false;
@@ -239,6 +247,7 @@ void GxEPD2_inkyphat::_PowerOff()
 
 void GxEPD2_inkyphat::_Reset()
 {
+  Serial.println("_Reset()");
   if (_rst >= 0 )
   {
     digitalWrite(_rst, 0);
@@ -251,6 +260,7 @@ void GxEPD2_inkyphat::_Reset()
 
 void GxEPD2_inkyphat::_InitDisplay()
 {
+  Serial.println("_InitDisplay()");
   // reset required for wakeup
   if (!_power_is_on)
   {
@@ -277,6 +287,7 @@ void GxEPD2_inkyphat::_InitDisplay()
 
 void GxEPD2_inkyphat::_Init_Full()
 {
+  Serial.println("_InitFull()");
   _InitDisplay();
   _writeCommand(0x04); // source driving voltage
   _writeData (0x41);
@@ -292,6 +303,7 @@ void GxEPD2_inkyphat::_Init_Full()
 
 void GxEPD2_inkyphat::_Update_Full()
 {
+  Serial.println("_UpdateFull()");
   _writeCommand(0x22); // display update
   _writeData (0xc7);
   _writeCommand(0x20); // master activation
