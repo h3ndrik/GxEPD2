@@ -53,6 +53,7 @@ class GxEPD2_inkyphat : public GxEPD2_EPD
     void refresh(int16_t x, int16_t y, int16_t w, int16_t h); // screen refresh from controller memory, partial screen
     void powerOff();
   private:
+    void _writeData_nCS(const uint8_t* data, uint16_t n);
     void _writeScreenBuffer(uint8_t value);
     void _setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
     void _PowerOff();
