@@ -49,14 +49,14 @@ void GxEPD2_inkyphat::writeScreenBuffer(uint8_t black_value, uint8_t color_value
 {
   Serial.println("writeScreenBuffer()");
   _Init_Full();
-  //_writeCommand(0x11); // data entry
+  _writeCommand(0x11); // data entry
   _setPartialRamArea(0, 0, WIDTH, HEIGHT);
   _writeCommand(0x24);
   for (uint32_t i = 0; i < uint32_t(WIDTH) * uint32_t(HEIGHT) / 8; i++)
   {
     _writeData(black_value);
   }
-  //_writeCommand(0x11); // data entry
+  _writeCommand(0x11); // data entry
   _setPartialRamArea(0, 0, WIDTH, HEIGHT);
   _writeCommand(0x26);
   for (uint32_t i = 0; i < uint32_t(WIDTH) * uint32_t(HEIGHT) / 8; i++)
@@ -87,7 +87,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int
   h1 -= dy;
   if ((w1 <= 0) || (h1 <= 0)) return;
   _Init_Full();
-  //_writeCommand(0x11); // data entry
+  _writeCommand(0x11); // data entry
   _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x24);
   for (int16_t i = 0; i < h1; i++)
@@ -116,7 +116,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int
       _writeData(data);
     }
   }
-  //_writeCommand(0x11); // data entry
+  _writeCommand(0x11); // data entry
   _setPartialRamArea(0, 0, WIDTH, HEIGHT);
   _writeCommand(0x26);
   for (int16_t i = 0; i < h1; i++)
@@ -235,6 +235,10 @@ void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uin
   _writeCommand(0x4f); // ram y counter
   _writeData(y);
   _writeData(y >> 8);
+  Serial.printf("partial ram area x: 0x44, [0x%x, 0x%x]", x, xe);
+  Serial.printf("partial ram area y: 0x45, [0x%x, 0x%x, 0x%x, 0x%x]", y, y>>8, ye, ye>>8);
+  Serial.printf("ram counter x: 0x4e, [0x%x]", x);
+  Serial.printf("ram counter y: 0x4f, [0x%x, 0x%x]", y, y>>8);
 }
 
 void GxEPD2_inkyphat::_PowerOff()
