@@ -60,6 +60,7 @@ void GxEPD2_inkyphat::writeScreenBuffer(uint8_t black_value, uint8_t color_value
   {
     _writeData(color_value);
   }
+  delay(2);
 }
 
 void GxEPD2_inkyphat::writeImage(const uint8_t bitmap[], int16_t x, int16_t y, int16_t w, int16_t h, bool invert, bool mirror_y, bool pgm)
@@ -141,7 +142,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int
       _writeData(data);
     }
   }
-  delay(1); // yield() to avoid WDT on ESP8266 and ESP32
+  delay(2); // yield() to avoid WDT on ESP8266 and ESP32
 }
 
 void GxEPD2_inkyphat::writeNative(const uint8_t* data1, const uint8_t* data2, int16_t x, int16_t y, int16_t w, int16_t h, bool invert, bool mirror_y, bool pgm)
@@ -211,16 +212,13 @@ void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uin
   _writeData(y >> 8);
   _writeData(ye & 0xff);
   _writeData(ye >> 8);
-
+  delay(2);
   _writeCommand(0x4e); // ram x counter
   _writeData(xs & 0xff);
   _writeCommand(0x4f); // ram y counter
   _writeData(y & 0xff);
   _writeData(y >> 8);
-  Serial.printf("partial ram area x: 0x44, [0x%x, 0x%x]\n", x, xe);
-  Serial.printf("partial ram area y: 0x45, [0x%x, 0x%x, 0x%x, 0x%x]\n", y, y>>8, ye, ye>>8);
-  Serial.printf("ram counter x: 0x4e, [0x%x]\n", x);
-  Serial.printf("ram counter y: 0x4f, [0x%x, 0x%x]\n", y, y>>8);
+  delay(2);
 }
 
 void GxEPD2_inkyphat::_PowerOff()
