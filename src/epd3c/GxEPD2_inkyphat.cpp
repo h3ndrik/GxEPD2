@@ -211,7 +211,7 @@ void GxEPD2_inkyphat::_writeData_nCS(const uint8_t* data, uint16_t n)
 void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   uint16_t xs = x>>3;
-  uint16_t xe = ((x + w)>>3) - 1);
+  uint16_t xe = ((x + w)>>3) - 1;
   uint16_t ye = y + h - 1;
   x &= 0xFFF8; // byte boundary
 
