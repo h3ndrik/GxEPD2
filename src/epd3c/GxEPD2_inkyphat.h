@@ -28,8 +28,8 @@ class GxEPD2_inkyphat : public GxEPD2_EPD
     static const bool hasFastPartialUpdate = false;
     static const uint16_t power_on_time = 100; // ms, ToDo!
     static const uint16_t power_off_time = 100; // ms, ToDo!
-    static const uint16_t full_refresh_time = 15000; // ms, ToDo!
-    static const uint16_t partial_refresh_time = 15000; // ms, ToDo!
+    static const uint16_t full_refresh_time = 32000; // ms, ToDo!
+    static const uint16_t partial_refresh_time = 32000; // ms, ToDo!
     // constructor
     GxEPD2_inkyphat(int8_t cs, int8_t dc, int8_t rst, int8_t busy);
     // methods (virtual)

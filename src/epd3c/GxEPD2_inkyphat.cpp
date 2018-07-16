@@ -58,7 +58,7 @@ void GxEPD2_inkyphat::writeScreenBuffer(uint8_t black_value, uint8_t color_value
   _writeCommand(0x26);
   for (uint32_t i = 0; i < uint32_t(WIDTH) * uint32_t(HEIGHT) / 8; i++)
   {
-    _writeData(color_value);
+    _writeData(~color_value);
   }
   //delay(2);
 }
@@ -139,7 +139,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int
         }
         if (invert) data = ~data;
       }
-      _writeData(data);
+      _writeData(~data);
     }
   }
   delay(1); // yield() to avoid WDT on ESP8266 and ESP32
@@ -223,8 +223,8 @@ void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uin
 
 void GxEPD2_inkyphat::_PowerOff()
 {
-//  _writeCommand(0x10); // deep sleep
-//  _writeData(0x01);
+  _writeCommand(0x10); // deep sleep
+  _writeData(0x01);
   _power_is_on = false;
 }
 
@@ -276,7 +276,7 @@ void GxEPD2_inkyphat::_Init_Full()
   _writeCommand(0x2c); // vcom
   _writeData (0x68);
   _writeCommand(0x3c); // border waveform
-  _writeData (0x33);
+  _writeData (0x33);   // ToDo: 0x00 or 0x33 or 0xFF
   _writeCommand(0x32); // write lut register
   _writeData(GxINKYPHAT_lut_full, sizeof(GxINKYPHAT_lut_full));
 }
