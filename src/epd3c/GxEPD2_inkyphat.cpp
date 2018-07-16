@@ -13,7 +13,7 @@
 #include "WaveTables.h"
 
 GxEPD2_inkyphat::GxEPD2_inkyphat(int8_t cs, int8_t dc, int8_t rst, int8_t busy) :
-  GxEPD2_EPD(cs, dc, rst, busy, HIGH, 20000000, WIDTH, HEIGHT, panel, hasColor, hasPartialUpdate, hasFastPartialUpdate)
+  GxEPD2_EPD(cs, dc, rst, busy, HIGH, 40000000, WIDTH, HEIGHT, panel, hasColor, hasPartialUpdate, hasFastPartialUpdate)
 {
   _initial = true;
   _power_is_on = false;
