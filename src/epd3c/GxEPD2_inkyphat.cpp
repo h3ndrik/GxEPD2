@@ -217,23 +217,24 @@ void GxEPD2_inkyphat::_writeData_nCS(const uint8_t* data, uint16_t n)
 void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
   Serial.println("_setPartialRamArea()");
-  uint16_t xe = (x + w - 1) | 0x0007; // byte boundary inclusive (last byte)
+  uint16_t xs = x>>3;
+  uint16_t xe = ((x + w)>>3) - 1);
   uint16_t ye = y + h - 1;
   x &= 0xFFF8; // byte boundary
 
   _writeCommand(0x44); // set ram x start end
-  _writeData(x);
-  _writeData(0x0c); // ToDo: xe ??
+  _writeData(xs & 0xff);
+  _writeData(xe & 0xff); // ToDo: xe ??
   _writeCommand(0x45); // set ram y start end
-  _writeData(y);
+  _writeData(y & 0xff);
   _writeData(y >> 8);
-  _writeData(ye);
+  _writeData(ye & 0xff);
   _writeData(ye >> 8);
 
   _writeCommand(0x4e); // ram x counter
-  _writeData(x);
+  _writeData(xs & 0xff);
   _writeCommand(0x4f); // ram y counter
-  _writeData(y);
+  _writeData(y & 0xff);
   _writeData(y >> 8);
   Serial.printf("partial ram area x: 0x44, [0x%x, 0x%x]\n", x, xe);
   Serial.printf("partial ram area y: 0x45, [0x%x, 0x%x, 0x%x, 0x%x]\n", y, y>>8, ye, ye>>8);
