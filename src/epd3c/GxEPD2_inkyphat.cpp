@@ -1,9 +1,11 @@
-// Display Library for SPI e-paper panels from Dalian Good Display and boards from Waveshare.
+// Display Library for Inky pHAT SPI e-paper panel from Pimoroni.
+// This board supposedly has a SSD1675A controller.
 // Requires HW SPI and Adafruit_GFX. Caution: these e-papers require 3.3V supply AND data lines!
 //
-// based on Demo Example from Good Display: http://www.good-display.com/download_list/downloadcategoryid=34&isMode=false.html
+// based on Pimoroni's library: https://github.com/pimoroni/inky-phat/
+// and https://github.com/drewler/epd/
 //
-// Author: Jean-Marc Zingg
+// Author: Hendrik Langer
 //
 // Version: see library.properties
 //
