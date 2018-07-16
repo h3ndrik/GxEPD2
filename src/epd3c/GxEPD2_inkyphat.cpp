@@ -288,6 +288,7 @@ void GxEPD2_inkyphat::_Update_Full()
   _writeCommand(0x22); // display update
   _writeData (0xc7);
   _writeCommand(0x20); // master activation
+  delay(50);
   _waitWhileBusy("_Update_Full", full_refresh_time);
 }
 
