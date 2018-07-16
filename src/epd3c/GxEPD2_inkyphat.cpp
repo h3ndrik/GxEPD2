@@ -84,7 +84,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int
   if ((w1 <= 0) || (h1 <= 0)) return;
   _Init_Full();
   //_writeCommand(0x11); // data entry
-  _setPartialRamArea(x1, y1, w1, h1);
+  _setPartialRamArea(0, 0, WIDTH, HEIGHT); // ToDo: _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x24);
   for (int16_t i = 0; i < h1; i++)
   {
