@@ -280,7 +280,7 @@ void GxEPD2_inkyphat::_Init_Full()
   _writeCommand(0x3c); // border waveform
   _writeData (0x33);   // ToDo: 0x00 or 0x33 or 0xFF
   _writeCommand(0x32); // write lut register
-  _writeData(GxINKYPHAT_lut_full, sizeof(GxINKYPHAT_lut_full));
+  _writeData(GxINKYPHAT_lut_2, sizeof(GxINKYPHAT_lut_2));
 }
 
 void GxEPD2_inkyphat::_Update_Full()
