@@ -226,6 +226,8 @@ void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uin
   _writeData(y & 0xff);
   _writeData(y >> 8);
   //delay(2);
+
+  if (x != 0 || y != 0 || w != WIDTH || h != HEIGHT) _using_partial_mode = true;
 }
 
 void GxEPD2_inkyphat::_PowerOff()
@@ -233,7 +235,7 @@ void GxEPD2_inkyphat::_PowerOff()
   _writeCommand(0x10); // deep sleep
   _writeData(0x01);    // or 0x11 for also powering down ram
   _power_is_on = false;
-  _using_partial_mode = false;
+  //_using_partial_mode = false;
 }
 
 void GxEPD2_inkyphat::_Reset()
@@ -321,6 +323,6 @@ void GxEPD2_inkyphat::_Update_Part()
   _writeData (0xc7);
   _writeCommand(0x20); // master activation
   delay(50);
-  _waitWhileBusy("_Update_Full", partial_refresh_time);
+  _waitWhileBusy("_Update_Part", partial_refresh_time);
 }
 
