@@ -24,7 +24,7 @@ class GxEPD2_inkyphat : public GxEPD2_EPD
     static const uint16_t HEIGHT = 212;
     static const GxEPD2::Panel panel = GxEPD2::INKYPHAT;
     static const bool hasColor = true;
-    static const bool hasPartialUpdate = false;
+    static const bool hasPartialUpdate = true;
     static const bool hasFastPartialUpdate = false;
     static const uint16_t power_on_time = 100; // ms, ToDo!
     static const uint16_t power_off_time = 100; // ms, ToDo!

@@ -87,7 +87,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int
   if ((w1 <= 0) || (h1 <= 0)) return;
   _Init_Full();
   //_writeCommand(0x11); // data entry
-  _setPartialRamArea(0, 0, WIDTH, HEIGHT); // ToDo: _setPartialRamArea(x1, y1, w1, h1);
+  _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x24);
   for (int16_t i = 0; i < h1; i++)
   {
@@ -116,7 +116,7 @@ void GxEPD2_inkyphat::writeImage(const uint8_t* black, const uint8_t* color, int
     }
   }
   //_writeCommand(0x11); // data entry
-  _setPartialRamArea(0, 0, WIDTH, HEIGHT);
+  _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x26);
   for (int16_t i = 0; i < h1; i++)
   {
@@ -190,7 +190,7 @@ void GxEPD2_inkyphat::refresh(int16_t x, int16_t y, int16_t w, int16_t h)
   w1 -= x1 - x;
   h1 -= y1 - y;
   _Init_Full();
-  _setPartialRamArea(0, 0, WIDTH, HEIGHT); // _setPartialRamArea(x1, y1, w1, h1);
+  _setPartialRamArea(x1, y1, w1, h1);
   _Update_Full();
 }
 
@@ -226,7 +226,7 @@ void GxEPD2_inkyphat::_setPartialRamArea(uint16_t x, uint16_t y, uint16_t w, uin
 void GxEPD2_inkyphat::_PowerOff()
 {
   _writeCommand(0x10); // deep sleep
-  _writeData(0x01);
+  _writeData(0x01);    // or 0x11 for also powering down ram
   _power_is_on = false;
 }
 
@@ -249,20 +249,20 @@ void GxEPD2_inkyphat::_InitDisplay()
   {
     _Reset();
   }
-  _writeCommand(0X12); // sw reset
+  _writeCommand(0x12); // sw reset
   _waitWhileBusy("_wakeUp reset");
-  _writeCommand(0X74); // set analog control block
+  _writeCommand(0x74); // set analog control block
   _writeData(0x54);
-  _writeCommand(0X7E); // set digital control block
+  _writeCommand(0x7E); // set digital control block
   _writeData(0x3b);
   _writeCommand(0x01); // driver output control
   _writeData (0xd3);
   _writeData (0x00);
   _writeData (0x00);
-  _writeCommand(0X3a); // dummy line period
-  _writeData(0x07);
-  _writeCommand(0X3b); // gate line width
-  _writeData(0x04);
+  _writeCommand(0x3a); // dummy line period
+  _writeData(0x07);    // 150 Hz
+  _writeCommand(0x3b); // gate line width
+  _writeData(0x04);    // 150 Hz
   _writeCommand(0x11); // data entry mode
   _writeData (0x03);
   _power_is_on = true;
