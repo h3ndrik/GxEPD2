@@ -196,7 +196,8 @@ void GxEPD2_inkyphat::refresh(int16_t x, int16_t y, int16_t w, int16_t h)
   if(_using_partial_mode) _Init_Part();
   else _Init_Full();
   _setPartialRamArea(x1, y1, w1, h1);
-  _Update_Full();
+  if(_using_partial_mode) _Update_Part();
+  else _Update_Full();
 }
 
 void GxEPD2_inkyphat::powerOff()
