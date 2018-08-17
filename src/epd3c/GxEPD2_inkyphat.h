@@ -59,9 +59,11 @@ class GxEPD2_inkyphat : public GxEPD2_EPD
     void _Reset();
     void _InitDisplay();
     void _Init_Full();
+    void _Init_Part();
     void _Update_Full();
+    void _Update_Part();
   protected:
-    bool _initial, _power_is_on;
+    bool _initial, _power_is_on, _using_partial_mode;
 };
 
 #endif
