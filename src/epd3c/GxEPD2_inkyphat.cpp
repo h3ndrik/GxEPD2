@@ -287,7 +287,7 @@ void GxEPD2_inkyphat::_Init_Full()
   _writeCommand(0x2c); // vcom
   _writeData (0x68);
   _writeCommand(0x3c); // border waveform
-  _writeData (0x33);   // ToDo: 0x00 or 0x33 or 0xFF
+  _writeData (0b00110001);   // ToDo: 0x00 or 0x33 or 0xFF
   _writeCommand(0x32); // write lut register
   _writeData(GxINKYPHAT_lut_2, sizeof(GxINKYPHAT_lut_2));
   _using_partial_mode = false;
@@ -303,7 +303,7 @@ void GxEPD2_inkyphat::_Init_Part()
   _writeCommand(0x2c); // vcom
   _writeData (0x68);
   _writeCommand(0x3c); // border waveform
-  _writeData (0x33);   // ToDo: 0x00 or 0x33 or 0xFF
+  _writeData (0b00110001);   // ToDo: 0x00 or 0x33 or 0xFF
   _writeCommand(0x32); // write lut register
   _writeData(GxINKYPHAT_lut_2_part, sizeof(GxINKYPHAT_lut_2_part));
   _using_partial_mode = true;
